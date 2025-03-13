@@ -141,7 +141,8 @@ def upload_photos(album_id):
         if 'photo' not in request.files:
             return redirect(f'/photoshare/{album_id}')
             
-        photos = request.files.getlist('photo')
+        files = request.files.getlist('photo')
+        allowed_extensions = {'png', 'jpg', 'jpeg', 'gif', 'mp4', 'webm', 'ogg'}
         
         with open('static/photoshare/files.json', 'r') as f:
             albums = json.load(f)
@@ -150,12 +151,14 @@ def upload_photos(album_id):
             upload_path = f"static/photoshare/{session['userid']}/{album_id}"
             os.makedirs(upload_path, exist_ok=True)
             
-            for photo in photos:
-                if photo.filename:
-                    photo.save(os.path.join(upload_path, photo.filename))
-                    if 'photos' not in albums[session['userid']][album_id]:
-                        albums[session['userid']][album_id]['photos'] = []
-                    albums[session['userid']][album_id]['photos'].append(photo.filename)
+            for file in files:
+                if file.filename:
+                    extension = file.filename.rsplit('.', 1)[1].lower()
+                    if extension in allowed_extensions:
+                        file.save(os.path.join(upload_path, file.filename))
+                        if 'photos' not in albums[session['userid']][album_id]:
+                            albums[session['userid']][album_id]['photos'] = []
+                        albums[session['userid']][album_id]['photos'].append(file.filename)
             
             with open('static/photoshare/files.json', 'w') as f:
                 json.dump(albums, f, indent=4)
