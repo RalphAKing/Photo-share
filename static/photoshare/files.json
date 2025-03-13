@@ -1,0 +1,32 @@
+{
+    "eff9a4ee-285a-4746-8299-cbb3b8aee2ad": {
+        "album_1": {
+            "name": "test",
+            "shared": true,
+            "parent": "",
+            "photos": [
+                "Screenshot 2025-03-11 122241.png",
+                "Screenshot 2025-03-11 122246.png",
+                "Screenshot 2025-03-12 100658.png",
+                "Screenshot 2025-03-12 100716.png",
+                "Screenshot 2025-03-12 153736.png"
+            ]
+        },
+        "album_2": {
+            "name": "test",
+            "shared": true,
+            "parent": "album_1",
+            "is_folder": true,
+            "photos": [],
+            "path": "album_1/album_2"
+        },
+        "album_3": {
+            "name": "test3",
+            "shared": true,
+            "parent": "album_2",
+            "is_folder": true,
+            "photos": [],
+            "path": "album_2/album_3"
+        }
+    }
+}
